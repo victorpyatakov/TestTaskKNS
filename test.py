@@ -10,6 +10,15 @@ class BracketAnalyze():
     def __init__(self, string_with_brackets:str):
         self.__string_with_brackets = string_with_brackets
 
+    @property
+    def string_with_brackets(self):
+        return self.__string_with_brackets
+
+
+    @string_with_brackets.setter
+    def string_with_brackets(self, new_str:str):
+        self.__string_with_brackets = new_str
+    
 
     def __get_dict_brakets(self) -> dict:
         """
@@ -57,8 +66,13 @@ class BracketAnalyze():
 
 
 if __name__ == "__main__":
-    test_string = '((){]]{{})]'
+    test_string = '({{{{}}}))'
     brackets_analiser = BracketAnalyze(test_string)
+    result = brackets_analiser.is_count_brackets_equal()
+    print(brackets_analiser.string_with_brackets)
+    print(result)
+    brackets_analiser.string_with_brackets = '({[]})'
+    print(brackets_analiser.string_with_brackets)
     result = brackets_analiser.is_count_brackets_equal()
     print(result)
     
