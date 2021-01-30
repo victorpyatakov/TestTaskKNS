@@ -28,28 +28,36 @@ class BracketAnalyze():
         """
         dict_brackets = self.__get_dict_brakets()
         list_brackets = []
+        count_left_brackets = 0
+        count_right_brackets = 0
         for char in self.__string_with_brackets:
             # Идем по символам в строке и если встретили левую скобку добавляем в стек
             if char in dict_brackets.values():
                     list_brackets.append(char)
+                    count_left_brackets += 1
                     continue
             # если встретили правую скобку
             if char in dict_brackets:
+                count_right_brackets += 1
                 # и в стеке лежит ее левая половина, то извлекаем из стека верхний элемент
-                if dict_brackets[char] in list_brackets:
-                    list_brackets.pop()
-                    continue
-                else:
-                    return False
+                if len(list_brackets) > 0:
+                    if dict_brackets[char] == list_brackets[-1]:
+                        list_brackets.pop()
+                        continue
+                    else:
+                        return False
         if len(list_brackets) > 0:
             return False
         else:
-            return True
+            if count_left_brackets != count_right_brackets:
+                return False
+            else:
+                return True
 
 
 
 if __name__ == "__main__":
-    test_string = '((({([{[ }])})))'
+    test_string = '((){]]{{})]'
     brackets_analiser = BracketAnalyze(test_string)
     result = brackets_analiser.is_count_brackets_equal()
     print(result)
