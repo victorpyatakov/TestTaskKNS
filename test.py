@@ -29,10 +29,13 @@ class BracketAnalyze():
         dict_brackets = self.__get_dict_brakets()
         list_brackets = []
         for char in self.__string_with_brackets:
+            # Идем по символам в строке и если встретили левую скобку добавляем в стек
             if char in dict_brackets.values():
                     list_brackets.append(char)
                     continue
+            # если встретили правую скобку
             if char in dict_brackets:
+                # и в стеке лежит ее левая половина, то извлекаем из стека верхний элемент
                 if dict_brackets[char] in list_brackets:
                     list_brackets.pop()
                     continue
